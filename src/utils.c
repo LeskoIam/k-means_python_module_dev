@@ -66,6 +66,12 @@ void print_double_array(double *arr, int arr_len)
 }
 
 
+/** \brief Print cluster in human readable way
+ *
+ * \param cl struct cluster - cluster to print
+ * \return void
+ *
+ */
 void print_cluster(struct cluster cl)
 {
     printf("cluster{\n"
@@ -103,6 +109,13 @@ double calculate_geodistance(struct geopoint p1, struct geopoint p2)
 }
 
 
+/** \brief Calculate euclidean distance between two N dimensional points
+ * \param p1 double* - first point
+ * \param p2 double* - second point
+ * \param dim int - point dimensions
+ * \return double - distance between the points
+ *
+ */
 double calculate_distance(double *p1, double *p2, int dim)
 {
     double distance_sq_sum = 0;
