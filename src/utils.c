@@ -122,7 +122,7 @@ double calculate_distance(double *p1, double *p2, int dim)
  * \param buf - buffer for result
  * \return double - center point of cluster
  */
-void calculate_centroid(struct cluster cl, double *buf)
+void calculate_centroid_center(struct cluster cl, double *buf)
 {
     double lat_coords[cl.num_points];
     double lon_coords[cl.num_points];
@@ -206,7 +206,7 @@ int random_sample(int k, double *arr, int arr_len, double *buf)
         *(used_indexes + i) = random_index;
         *(buf + i) = *(arr + random_index);
 
-        print_int_array(used_indexes, k);
+        // print_int_array(used_indexes, k);
         i++;
     }
 

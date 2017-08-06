@@ -26,7 +26,7 @@ void test_random_sample()
     printf("\n---- Test random_sample ----\n");
     int ret_code = 0;
 
-    const int K = 11;
+    const int K = 4;
     double arr_in[MAX_ARR_LEN] = {1.12, 2.23, 3.34, 4.45,
                                   6.67, 15.1516, 20.2021, 36.2637,
                                   78.7879, 1.12, 5.56, 12.1213};
@@ -71,7 +71,7 @@ void test_mean()
 
 void test_calculate_centroid()
 {
-    printf("\n---- Test calculate_centroid ----\n");
+    printf("\n---- Test calculate_centroid_center ----\n");
     int ret_code = 0;
 
     struct geopoint gcenter;
@@ -97,7 +97,7 @@ void test_calculate_centroid()
     print_cluster(test_cluster);
 
     double center[2];
-    calculate_centroid(test_cluster, center);
+    calculate_centroid_center(test_cluster, center);
     test_cluster.center.lat = center[0];
     test_cluster.center.lon = center[1];
 
