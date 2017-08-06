@@ -19,6 +19,7 @@ struct cluster
 int in_int_array(int number, int *arr, int arr_len);
 void print_int_array(int *arr, int arr_len);
 void print_double_array(double *arr, int arr_len);
+double calculate_geodistance(struct geopoint p1, struct geopoint p2);
 double calculate_distance(double *p1, double *p2, int dim);
 void calculate_centroid(struct cluster cl, double *buf);
 void print_cluster(struct cluster cl);

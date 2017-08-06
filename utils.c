@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "main.h"
 
@@ -65,13 +66,43 @@ void print_double_array(double *arr, int arr_len)
 }
 
 
-/** \brief Calculate euclidean distance between two N dimensional points
+void print_cluster(struct cluster cl)
+{
+    printf("cluster{\n"
+                   "    center lat: %f\n"
+                   "    center lon; %f\n"
+                   "    num_points: %d\n"
+                   "    cluster_points:\n"
+                   "        {",
+           cl.center.lat,
+           cl.center.lon,
+           cl.num_points);
+    for (int i = 0; i < cl.num_points; i++)
+    {
+        printf("{%f, %f}",
+               cl.cluster_points[i].lat,
+               cl.cluster_points[i].lon);
+        if (i < cl.num_points-1)
+            printf(", ");
+    }
+    printf("}\n");
+}
+
+
+/** \brief Calculate euclidean distance between two geopoints (lat, lon)
  *
- * \param p1 double* - first point
- * \param p2 double* - second point
- * \param dim int - number of dimensions points have
- * \return double - distance
+ * \param p1 struct geopoint - first point
+ * \param p2 struct geopoint - second point
+ * \return double - distance between the points
  */
+double calculate_geodistance(struct geopoint p1, struct geopoint p2)
+{
+    double distance;
+    distance = sqrt(sqr(p1.lat - p2.lat) + sqr(p1.lon - p2.lon));
+    return distance;
+}
+
+
 double calculate_distance(double *p1, double *p2, int dim)
 {
     double distance_sq_sum = 0;
@@ -111,29 +142,6 @@ void calculate_centroid(struct cluster cl, double *buf)
 }
 
 
-void print_cluster(struct cluster cl)
-{
-    printf("cluster{\n"
-                   "    center lat: %f\n"
-                   "    center lon; %f\n"
-                   "    num_points: %d\n"
-                   "    cluster_points:\n"
-                   "        {",
-           cl.center.lat,
-           cl.center.lon,
-           cl.num_points);
-    for (int i = 0; i < cl.num_points; i++)
-    {
-        printf("{%f, %f}",
-               cl.cluster_points[i].lat,
-               cl.cluster_points[i].lon);
-        if (i < cl.num_points-1)
-            printf(", ");
-    }
-    printf("}\n");
-}
-
-
 /** \brief Calculate mean of given array
  *
  * \param arr double* - array to calculate mean for
@@ -169,7 +177,7 @@ int random_sample(int k, double *arr, int arr_len, double *buf)
     }
     if (k == arr_len)
     {
-        printf("WARNING: k == arr_len, COPYING ORIGINAL ARRAY\n");
+        printf("INFO: k == arr_len, COPYING ORIGINAL ARRAY\n");
         // memcpy(dest, src, sizeof(src));
         memcpy(buf, arr, sizeof(double)*k);
         return 0;
