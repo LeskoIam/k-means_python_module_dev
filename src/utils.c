@@ -17,7 +17,7 @@
  * \param arr_len int - length of array
  * \return int - 1 if found, 0 if not found
  */
-int in_int_array(int number, int *arr, int arr_len)
+int in_int_array(int number, const int *arr, int arr_len)
 {
     for (int i=0; i < arr_len; i++)
     {
@@ -28,12 +28,21 @@ int in_int_array(int number, int *arr, int arr_len)
 }
 
 
+double max_double(double a, double b)
+{
+    if (a < b)
+        return b;
+    return a;
+}
+
+
+
 /** \brief Print int array as "int{....}"
  *
  * \param arr int* - array to print
  * \param arr_len int - length of array
  */
-void print_int_array(int *arr, int arr_len)
+void print_int_array(const int *arr, int arr_len)
 {
     printf("int{");
     int i = 0;
@@ -52,7 +61,7 @@ void print_int_array(int *arr, int arr_len)
  * \param arr int* - array to print
  * \param arr_len int - length of array
  */
-void print_double_array(double *arr, int arr_len)
+void print_double_array(const double *arr, int arr_len)
 {
     printf("double{");
     int i = 0;
@@ -116,7 +125,7 @@ double calculate_geodistance(struct geopoint p1, struct geopoint p2)
  * \return double - distance between the points
  *
  */
-double calculate_distance(double *p1, double *p2, int dim)
+double calculate_distance(const double *p1, const double *p2, int dim)
 {
     double distance_sq_sum = 0;
 

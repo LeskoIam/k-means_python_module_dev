@@ -16,11 +16,12 @@ struct cluster
     struct geopoint *cluster_points;
 };
 
-int in_int_array(int number, int *arr, int arr_len);
-void print_int_array(int *arr, int arr_len);
-void print_double_array(double *arr, int arr_len);
+double max_double(double a, double b);
+int in_int_array(int number, const int *arr, int arr_len);
+void print_int_array(const int *arr, int arr_len);
+void print_double_array(const double *arr, int arr_len);
 double calculate_geodistance(struct geopoint p1, struct geopoint p2);
-double calculate_distance(double *p1, double *p2, int dim);
+double calculate_distance(const double *p1, const double *p2, int dim);
 void calculate_centroid_center(struct cluster cl, double *buf);
 void print_cluster(struct cluster cl);
 double mean(const double *arr, int arr_len);
