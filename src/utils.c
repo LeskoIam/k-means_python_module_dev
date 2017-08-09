@@ -76,7 +76,7 @@ void print_cluster(struct cluster cl)
 {
     printf("cluster{\n"
                    "    center lat: %f\n"
-                   "    center lon; %f\n"
+                   "    center lon: %f\n"
                    "    num_points: %d\n"
                    "    cluster_points:\n"
                    "        {",
@@ -161,7 +161,7 @@ void calculate_centroid_center(struct cluster cl, double *buf)
  * \param arr_len int - length of array
  * \return double - mean
  */
-double mean(double *arr, int arr_len)
+double mean(const double *arr, int arr_len)
 {
     double sum = 0;
     for (int i = 0; i < arr_len; i++)
@@ -182,7 +182,7 @@ double mean(double *arr, int arr_len)
  */
 int random_sample(int k, double *arr, int arr_len, double *buf)
 {
-    // Check if k exceeds length of array (arr_len)
+    // Check if k exceeds length of array (arr_len) or k was selected such that it is smaller then 0
     if (k > arr_len || k < 1)
     {
         printf("ERROR: k > arr_len || k < 1, ABORTING\n");
@@ -218,6 +218,52 @@ int random_sample(int k, double *arr, int arr_len, double *buf)
         }
         *(used_indexes + i) = random_index;
         *(buf + i) = *(arr + random_index);
+
+        // print_int_array(used_indexes, k);
+        i++;
+    }
+
+    return 0;
+}
+
+
+int random_sample_index(int k, int arr_len, int *buf)
+{
+    // Check if k exceeds length of array (arr_len) or k was selected such that it is smaller then 0
+    if (k > arr_len || k < 1)
+    {
+        printf("ERROR: k > arr_len || k < 1, ABORTING\n");
+        return -1;
+    }
+    if (k == arr_len)
+    {
+        printf("INFO: k == arr_len, COPYING ORIGINAL ARRAY\n");
+        for (int i = 0; i < arr_len; i++) {*(buf + i) = i;}
+        return 0;
+    }
+
+    int used_indexes[k];  // already used indexes
+    int random_index;
+    // Fill with value of arr_len, maximum index is, of course, arr_len - 1
+    // so this should be OK
+    for (int i=0; i<k; i++) {used_indexes[i] = arr_len;}
+
+    srand((unsigned) time(NULL));  // Initialize random seed
+
+    int i = 0;
+    while (i < k)
+    {
+        random_index = rand() % arr_len;  // between 0 and arr_len - 1
+        // printf("Loop random index: %d\n", random_index);
+
+        // Check if this index was already selected
+        if (in_int_array(random_index, used_indexes, k) == 1)
+        {
+            // printf("INFO: index %d already selected\n", random_index);
+            continue;
+        }
+        *(used_indexes + i) = random_index;
+        *(buf + i) = random_index;
 
         // print_int_array(used_indexes, k);
         i++;
