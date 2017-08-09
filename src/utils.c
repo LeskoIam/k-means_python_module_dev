@@ -28,15 +28,6 @@ int in_int_array(int number, const int *arr, int arr_len)
 }
 
 
-double max_double(double a, double b)
-{
-    if (a < b)
-        return b;
-    return a;
-}
-
-
-
 /** \brief Print int array as "int{....}"
  *
  * \param arr int* - array to print

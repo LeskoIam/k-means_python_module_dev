@@ -16,7 +16,6 @@ struct cluster
     struct geopoint *cluster_points;
 };
 
-double max_double(double a, double b);
 int in_int_array(int number, const int *arr, int arr_len);
 void print_int_array(const int *arr, int arr_len);
 void print_double_array(const double *arr, int arr_len);

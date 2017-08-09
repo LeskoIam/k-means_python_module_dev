@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
+#include <math.h>
 #include "main.h"
 
 #define MAX_ARR_LEN 12
@@ -47,7 +48,7 @@ int main()
     for (int i = 0; i < 5; i++) {
         clusters[i].center = points[initial_indexes[i]];
         clusters[i].num_points = 1;
-        clusters[i].cluster_points = (struct geopoint *) malloc(sizeof(struct geopoint)); // &points[initial_indexes[i]]; // This is 'dummy' data, khmmm...
+        clusters[i].cluster_points = (struct geopoint *) malloc(sizeof(struct geopoint));
         // print_cluster(clusters[i]);
 }
 
@@ -140,7 +141,7 @@ int main()
             shift = calculate_geodistance(old_center, clusters[i].center);
 
             // Keep track of the largest move from all cluster centroid updates
-            biggest_shift = max_double(biggest_shift, shift);
+            biggest_shift = fmax(biggest_shift, shift);
         }
         printf("Biggest shift: %f\n", biggest_shift);
         if (biggest_shift < CUTOFF) {
