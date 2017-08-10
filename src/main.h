@@ -4,15 +4,15 @@
 
 struct geopoint
 {
-    double lat;
-    double lon;
+    double lat;  // 8
+    double lon;  // 8
 };
 
 
-struct cluster
+struct cluster  // 32
 {
-    int num_points;
-    struct geopoint center;
+    int num_points;          // 4
+    struct geopoint center;  // 16
     struct geopoint *cluster_points;
 };
 

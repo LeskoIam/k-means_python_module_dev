@@ -8,7 +8,7 @@
 
 // K-Means variables
 #define N 200
-#define K 5
+#define K 7
 #define CUTOFF 0.0000001
 
 void test_random_sample();
@@ -45,7 +45,7 @@ int main()
 
     // Create k clusters using those centroids
     printf("Random points to seed first clusters\n");
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < K; i++) {
         clusters[i].center = points[initial_indexes[i]];
         clusters[i].num_points = 1;
         clusters[i].cluster_points = (struct geopoint *) malloc(sizeof(struct geopoint));
@@ -57,6 +57,7 @@ int main()
     double distance;
     int cluster_index;
     int n_loops = 0;
+    int realloc_count = 0;
     while (1) {
         n_loops++;
         printf("\n");
@@ -112,7 +113,6 @@ int main()
                     count++;
                 }
             }
-            printf("Count of points: %d\n", count);
 
             // Fill temp points with valid points
             struct geopoint temp[count];
@@ -125,10 +125,14 @@ int main()
             }
             // Update cluster
             // Update centroid count
-            clusters[i].num_points = count;
             // Allocate memory for points and copy temp to new address
-            clusters[i].cluster_points = (struct geopoint *) realloc(clusters[i].cluster_points, sizeof(struct geopoint) * count);
-            memcpy(clusters[i].cluster_points, temp, sizeof(struct geopoint)*count);
+            printf("num_point=%d  count=%d\n", clusters[i].num_points, count);
+            if (clusters[i].num_points < count) {
+                clusters[i].cluster_points = (struct geopoint *) realloc(clusters[i].cluster_points, sizeof(struct geopoint) * count);
+                realloc_count++;
+            }
+            clusters[i].num_points = count;
+            memcpy(clusters[i].cluster_points, temp, sizeof(struct geopoint) * count);
             // Calculate new cluster center and update its center
             double new_center[2];
             struct geopoint new_geocenter;
@@ -154,7 +158,7 @@ int main()
         print_cluster(clusters[c]);
         free(clusters[c].cluster_points);
     }
-    printf("n_loops: %d", n_loops);
+    printf("n_loops: %d\nrealloc_count: %d\n", n_loops, realloc_count);
 
     return 0;
 }
