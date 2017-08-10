@@ -149,7 +149,7 @@ int main()
         }
     }
     
-    // clean
+    // Clean
     for (int c = 0; c < K; c++) {
         print_cluster(clusters[c]);
         free(clusters[c].cluster_points);
