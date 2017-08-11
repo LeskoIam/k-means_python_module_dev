@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "main.h"
+#include "../main.h"
 
 
 #define sqr(x) ((x)*(x))

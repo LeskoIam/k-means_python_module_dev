@@ -16,6 +16,7 @@ struct cluster  // 32
     struct geopoint *cluster_points;
 };
 
+int k_means();
 int in_int_array(int number, const int *arr, int arr_len);
 void print_int_array(const int *arr, int arr_len);
 void print_double_array(const double *arr, int arr_len);
