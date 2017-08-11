@@ -11,7 +11,7 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "i", &n))
         return NULL;
     int ret;
-    ret = k_means();
+    ret = k_means(n);
     Py_RETURN_NONE;
 }
 
@@ -20,7 +20,9 @@ static PyMethodDef KmeansMethods[] = {
         {NULL, NULL, 0, NULL}
 };
 
+//             init"filename "
 PyMODINIT_FUNC inittestmodule(void)
 {
+    //                   " filename "
     (void) Py_InitModule("testmodule", KmeansMethods);
 }

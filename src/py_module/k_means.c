@@ -7,10 +7,9 @@
 
 // K-Means variables
 #define N 200
-#define K 17
 #define CUTOFF 0.00000001
 
-int k_means()
+int k_means(const int K)
 {
     // K-means implementation
     struct geopoint points[N];
