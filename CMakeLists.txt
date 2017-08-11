@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES
         src/main.c
         src/main.h
-        src/py_module/k_means.c
+        src/lib/k_means.c
         src/lib/utils.c
         )
 
