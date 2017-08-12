@@ -6,7 +6,6 @@
 #include "../main.h"
 
 // K-Means variables
-//#define N 200
 #define CUTOFF 0.00000001
 
 int k_means(const double *lats, const double *lons, const int N, const int K)
@@ -84,7 +83,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K)
 
             }
             // lists[cluster_index].append(p)
-            lists[cluster_index][inner_index] = points[p];
+            lists[cluster_index][inner_index] =  *(points + p);
             inner_index++;
 
         }
