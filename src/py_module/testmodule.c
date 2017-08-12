@@ -27,7 +27,6 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
     if (! PyArg_ParseTuple( args, "O!O!i", &PyList_Type, &latListObj,
                                            &PyList_Type, &lonListObj,
                                            &K)) {
-        printf("SHIT 01\n");
         return NULL;
     }
 
@@ -36,7 +35,7 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
     n_lonPoints = PyList_Size(lonListObj);
     // should raise an error here
     if (n_latPoints != n_lonPoints) {
-        printf("SHIT 02\n");
+        PyErr_SetString(PyExc_ValueError, "'lat' and 'lon' lists must have equal length.");
         return NULL;
     }
     N = n_latPoints;
@@ -46,7 +45,7 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
 
     // should raise an error here
     if (n_latPoints < 0) {
-        printf("SHIT 03\n");
+        PyErr_SetString(PyExc_ValueError, "Less then zero points supplied.");
         return NULL; // Not a list
     }
 
@@ -58,8 +57,8 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
         tempLat = PyFloat_AsDouble(latFloatObj);
         tempLon = PyFloat_AsDouble(lonFloatObj);
 
-        latPoints[i] = tempLat;
-        lonPoints[i] = tempLon;
+        *(latPoints + i) = tempLat;
+        *(lonPoints + i) = tempLon;
 
         // printf("lat: %f lon: %f\n", tempLat, tempLon);
     }
@@ -74,7 +73,7 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
 }
 
 static PyMethodDef KmeansMethods[] = {
-        {"call_k_means", call_k_means, METH_VARARGS, "Call k-means test function."},
+        {"call_k_means", call_k_means, METH_VARARGS, "Calculate cluster based on K-means algorithm."},
         {NULL, NULL, 0, NULL}
 };
 

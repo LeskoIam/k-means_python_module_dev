@@ -5,7 +5,7 @@
 
 #include "../main.h"
 
-// K-Means variables
+// K-Means cutoff jitter distance
 #define CUTOFF 0.00000001
 
 int k_means(const double *lats, const double *lons, const int N, const int K)
@@ -42,7 +42,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K)
     int realloc_count = 0;
     int realloc_loop_count = 0;
 
-    struct geopoint **lists;  //[K][N];
+    struct geopoint **lists;
     lists = malloc2dgeoarray(K, N);
     struct geopoint dummy;
     dummy.lat = -1;
@@ -126,8 +126,8 @@ int k_means(const double *lats, const double *lons, const int N, const int K)
             double new_center[2];
             struct geopoint new_geocenter;
             calculate_centroid_center(clusters[i], new_center);
-            new_geocenter.lat = new_center[0];
-            new_geocenter.lon = new_center[1];
+            new_geocenter.lat = *(new_center);
+            new_geocenter.lon = *(new_center + 1);
             clusters[i].center = new_geocenter;
             // Calculate shift
             double shift;
@@ -152,6 +152,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K)
 
     for (int c = 0; c < K; c++) {
         // print_cluster(clusters[c]);
+        printf("#%d:\n    N:%d\n    (%f, %f)\n", c, clusters[c].num_points, clusters[c].center.lat, clusters[c].center.lon);
         free(clusters[c].cluster_points);
     }
     printf("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n", n_loops, realloc_loop_count, realloc_count);
