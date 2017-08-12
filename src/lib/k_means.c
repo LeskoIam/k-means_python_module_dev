@@ -44,20 +44,24 @@ int k_means(const double *lats, const double *lons, const int N, const int K)
     int n_loops = 0;
     int realloc_count = 0;
     int realloc_loop_count = 0;
+
+    struct geopoint lists[K][N];
+    struct geopoint dummy;
+    dummy.lat = -1;
+    dummy.lon = -1;
+
+    int inner_index;
+
     while (1) {
         n_loops++;
-        printf("\n");
+        // printf("Loop gogogogo...\n");
 
-        struct geopoint lists[K][N];
-        struct geopoint dummy;
-        dummy.lat = -1;
-        dummy.lon = -1;
         for (int i = 0; i < K; ++i) {
             for (int j = 0; j < N; j++) {
                 lists[i][j] = dummy;
             }
         }
-        int inner_index = 0;
+        inner_index = 0;
         // For every point in the dataset ...
         for (int p = 0; p < N; p++) {
             // Get the distance between that point and the centroid of the first cluster.
@@ -112,7 +116,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K)
             // Update cluster
             // Update centroid count
             // Allocate memory for points and copy temp to new address
-            printf("num_point=%d  count=%d\n", clusters[i].num_points, count);
+            // printf("num_point=%d  count=%d\n", clusters[i].num_points, count);
             if (clusters[i].num_points < count) {
                 clusters[i].cluster_points = (struct geopoint *) realloc(clusters[i].cluster_points, sizeof(struct geopoint) * count);
                 realloc_count++;
