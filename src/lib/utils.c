@@ -95,6 +95,19 @@ void print_cluster(struct cluster cl)
 }
 
 
+struct geopoint **malloc2dgeoarray(int K, int N)
+{
+    // printf("Mallocing started\n");
+    struct geopoint **a;
+    a = (struct geopoint **) malloc(K*sizeof(struct geopoint *));
+
+    for (int i = 0; i < K; i++)
+        a[i] = (struct geopoint *) malloc(N*sizeof(struct geopoint));
+    // printf("Mallocing complete\n");
+    return a;
+}
+
+
 /** \brief Calculate euclidean distance between two geopoints (lat, lon)
  *
  * \param p1 struct geopoint - first point

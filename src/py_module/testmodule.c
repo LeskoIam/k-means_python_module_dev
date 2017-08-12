@@ -41,8 +41,8 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
     }
     N = n_latPoints;
 
-    double latPoints[N];
-    double lonPoints[N];
+    double *latPoints = (double *) malloc(sizeof(double) * N);
+    double *lonPoints = (double *) malloc(sizeof(double) * N);
 
     // should raise an error here
     if (n_latPoints < 0) {
@@ -63,7 +63,12 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
 
         // printf("lat: %f lon: %f\n", tempLat, tempLon);
     }
+    // printf("testmodule - calling 'call_k_means() ...\n'");
     k_means(latPoints, lonPoints, N, K);
+
+    // Clean
+    free(latPoints);
+    free(lonPoints);
 
     Py_RETURN_NONE;
 }
