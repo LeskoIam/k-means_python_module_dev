@@ -62,6 +62,12 @@ Code related to K-means algorithm is in [lib](src/lib) folder. Split between [k_
     * [Writing Python/C extensions by hand](http://www.dalkescientific.com/writings/NBN/c_extensions.html) - another a bit advanced 
       example of C extension 
 
+## TODO
+* write ```setup.py```
+* return points belonging to clusters
+* clean up k_means and utils files
+* some .h file refactoring, probably 
+
 ## Technical details
 * Windows10 64 Professional
 * Python 2.7.13
