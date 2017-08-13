@@ -8,22 +8,16 @@
 
 static PyObject* call_k_means(PyObject* self, PyObject* args)
 {
-    int n_latPoints;
-    int n_lonPoints;
-    double tempLat;
-    double tempLon;
+    int n_latPoints;  // Number of latitude points received from caller
+    int n_lonPoints;  // Number of longitude points received from caller
 
-    PyObject *latListObj;
-    PyObject *lonListObj;
+    PyObject *latListObj;  // Buffer for received latitude points as python list
+    PyObject *lonListObj;  // Buffer for received longitude points as python list
 
-    PyObject *latFloatObj;
-    PyObject *lonFloatObj;
+    int N;  // Number of points (length of points)
+    int K;  // K in k-means - number of clusters we assume there are
 
-    int N;
-    int K;
-
-    /* the O! parses for a Python object (listObj) checked
-       to be of type PyList_Type */
+    // the O! parses for a Python object (listObj) checked to be of type PyList_Type
     if (! PyArg_ParseTuple( args, "O!O!i", &PyList_Type, &latListObj,
                                            &PyList_Type, &lonListObj,
                                            &K)) {
@@ -51,25 +45,35 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
 
     printf("K: %d, N: %d\n", K, N);
     for (int i = 0; i < n_latPoints; i++) {
-        latFloatObj = PyList_GetItem(latListObj, i); // Can't fail WHY?
-        lonFloatObj = PyList_GetItem(lonListObj, i);
-
-        tempLat = PyFloat_AsDouble(latFloatObj);
-        tempLon = PyFloat_AsDouble(lonFloatObj);
-
-        *(latPoints + i) = tempLat;
-        *(lonPoints + i) = tempLon;
-
-        // printf("lat: %f lon: %f\n", tempLat, tempLon);
+        *(latPoints + i) = PyFloat_AsDouble(PyList_GetItem(latListObj, i));;
+        *(lonPoints + i) = PyFloat_AsDouble(PyList_GetItem(lonListObj, i));
     }
     // printf("testmodule - calling 'call_k_means() ...\n'");
-    k_means(latPoints, lonPoints, N, K);
+    struct cluster *clusters = (struct cluster *) malloc(sizeof(struct cluster) * K);
+    k_means(latPoints, lonPoints, N, K, clusters);
 
+    PyObject *pList = PyList_New(K); // new reference
+    assert(PyList_Check(pList));
+
+    for (int i = 0; i < K; i++) {
+        // print_cluster(clusters[c]);
+        printf("#%d:\n    N:%d\n    (%f, %f)\n", i, clusters[i].num_points, clusters[i].center.lat, clusters[i].center.lon);
+
+        PyObject *pDict = PyDict_New(); // new reference
+        assert(PyDict_Check(pDict));
+
+        PyDict_SetItemString(pDict, "num_points", Py_BuildValue("i", clusters[i].num_points));
+        PyDict_SetItemString(pDict, "center", Py_BuildValue("(f,f)", clusters[i].center.lat, clusters[i].center.lon));
+
+        PyList_SetItem(pList, i, pDict);
+
+        free(clusters[i].cluster_points);
+    }
     // Clean
+    free(clusters);
     free(latPoints);
     free(lonPoints);
-
-    Py_RETURN_NONE;
+    return pList;
 }
 
 static PyMethodDef KmeansMethods[] = {

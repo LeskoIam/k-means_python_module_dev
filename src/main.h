@@ -17,7 +17,7 @@ struct cluster  // 32
 };
 
 struct geopoint **malloc2dgeoarray(int K, int N);
-int k_means(const double *lats, const double *lons, int N, int K);
+int k_means(const double *lats, const double *lons, int N, int K, struct cluster *clusters);
 int in_int_array(int number, const int *arr, int arr_len);
 void print_int_array(const int *arr, int arr_len);
 void print_double_array(const double *arr, int arr_len);
