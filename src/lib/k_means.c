@@ -156,7 +156,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
 //        printf("#%d:\n    N:%d\n    (%f, %f)\n", c, clusters[c].num_points, clusters[c].center.lat, clusters[c].center.lon);
 //        free(clusters[c].cluster_points);
 //    }
-    printf("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n", n_loops, realloc_loop_count, realloc_count);
+    printf("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n%f\n", n_loops, realloc_loop_count, realloc_count, (double) realloc_loop_count/(double) realloc_count);
 
     return 0;
 }
