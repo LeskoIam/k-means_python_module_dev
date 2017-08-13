@@ -8,21 +8,21 @@ list of dictionaries ```[{"center": (lat, lon), "num_points": N}]```. It demonst
 it to C data types then reversing the process for returning back to Python.
 
 ## Backstory
-For fun and games I'm gathering geolocation data for taxis in one of Europe capital cities. In a year or so I am already
-at 68 million rows of raw data which boil down to  1.8 million distinct events. Every one of this events has latitude and 
+For fun and games I'm gathering geolocation data for taxis in one of Europe's capital cities. In a year or so I am already
+at 68 million rows of raw data which boils down to  1.8 million distinct events. Every one of this events has latitude and 
 longitude information (and some other info) attached.
 
 I wanted to do some clustering of the data. Looking at different algorithms I decided for 
-[K-means](https://en.wikipedia.org/wiki/K-means_clustering). It's one of the simplest to implement and easy to understand.
+[K-means](https://en.wikipedia.org/wiki/K-means_clustering). It's one of the simplest and easiest to understand.
 
 First I tried with Python. Found a pure Python implementation of K-means algorithm 
 ([original here](http://pandoricweb.tumblr.com/post/8646701677/python-implementation-of-the-k-means-clustering))
-on the web. I soon found out it gets really slow really fast when amount of data supplied to it increases 
-(70 seconds for 13000 points in 50 clusters). Enter C with promise of speedups.
+on the web. I soon found it gets really slow really fast when amount of data supplied to it increases 
+(70 seconds for 13000 points in 50 clusters). Enter C with promises of speedups.
 
-I found C implementations of K-means but could not make heads or tails from it. Decision was made implement it myself.
-I have some prior experience with C, but very limited, so it was a great learning experience specially in the end when I 
-needed to wrap everything for calling from and returning to Python.
+I found C implementations of K-means but could not make heads or tails of it. Decision was made to implement it myself.
+I do have some prior experience with C but haven't done anything with it for some time, so it was a great re-learning
+experience specially in the end when I needed to wrap everything for calling from and returning to Python.
 
 ## C source code
 
