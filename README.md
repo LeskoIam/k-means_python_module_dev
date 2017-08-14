@@ -6,7 +6,7 @@ input and transform it to C data types then reversing the process for returning 
 trivial one so I hope it explains a little bit more then just how to pass a single variable and print it out from C.
 
 ### What this is NOT
-This is not meant to be a tutorial and is not written as such. It also does not talk about K.means algorithm but uses it
+This is not meant to be a tutorial and is not written as such. It also does not talk about K-means algorithm but uses it
 as an example.
 
 ## Backstory
