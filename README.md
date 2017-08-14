@@ -1,5 +1,4 @@
 # Simple 2D k-means Python 2.7 module implemented in pure C
-
 This is an example on how to create and build an extension module for Python in pure C. Example is not the most trivial one so
 I hope it explains a little bit more then then just how to pass a single variable and print it out from C.
 
@@ -12,12 +11,13 @@ For fun and games I'm gathering geolocation data for taxis in one of Europe's ca
 at 68 million rows of raw data which boils down to  1.8 million distinct events. Every one of this events has latitude and 
 longitude information (and some other info) attached.
 
-I wanted to do some clustering of the data. Looking at different algorithms I decided for 
-[K-means](https://en.wikipedia.org/wiki/K-means_clustering). It's one of the simplest and easiest to understand.
+I wanted to do some clustering of the data to see where taxis pick up customers most of the time. Looking at different
+algorithms I decided for [K-means](https://en.wikipedia.org/wiki/K-means_clustering). It's one of the simplest and easiest
+to understand.
 
-First I tried with Python. Found a pure Python implementation of K-means algorithm 
+First I tried with Python. I found a pure Python implementation of K-means algorithm 
 ([original here](http://pandoricweb.tumblr.com/post/8646701677/python-implementation-of-the-k-means-clustering))
-on the web. I soon found it gets really slow really fast when amount of data supplied to it increases 
+on the web. But it soon became obvious that it gets really slow really fast when amount of data supplied to it increases 
 (70 seconds for 13000 points in 50 clusters). Enter C with promises of speedups.
 
 I found C implementations of K-means but could not make heads or tails of it. Decision was made to implement it myself.
@@ -25,7 +25,6 @@ I do have some prior experience with C but haven't done anything with it for som
 experience specially in the end when I needed to wrap everything for calling from and returning to Python.
 
 ## C source code
-
 Everything dealing with Python is in [testmodule.c](src/py_module/testmodule.c). All the code is commented and explained 
 in the file.
 
@@ -35,7 +34,7 @@ Code related to K-means algorithm is in [lib](src/lib) folder. Split between [k_
 1. Clone repo
 2. Install [MinGW](http://www.mingw.org/)
 3. Add MinGW to PATH
-4. Execute [make.cmd](src/py_module/make.cmd) to compile
+4. Execute [make.cmd](src/py_module/make.bat) to compile
 5. import into Python script and use
 
 ## Resources used:
@@ -66,7 +65,8 @@ Code related to K-means algorithm is in [lib](src/lib) folder. Split between [k_
 * write ```setup.py```
 * return points belonging to clusters
 * clean up k_means and utils files
-* some .h file refactoring, probably 
+* some .h file refactoring, probably
+* decide if cuttoff distance for K-means should be supplied by user?
 
 ## Technical details
 * Windows10 64 Professional

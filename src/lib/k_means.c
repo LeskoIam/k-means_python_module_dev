@@ -23,7 +23,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
 
     // Pick out k random points to use as our initial centroids, well this are actually indexes...
     random_sample_index(K, N, initial_indexes);
-    // print_int_array(initial_indexes, K);
+    DEBUG_PRINT("K: %d\n", K);
 
     // Create k clusters using those centroids
     // printf("Random points to seed first clusters\n");
@@ -31,7 +31,6 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
         clusters[i].center = points[initial_indexes[i]];
         clusters[i].num_points = 1;
         clusters[i].cluster_points = (struct geopoint *) malloc(sizeof(struct geopoint));
-        // print_cluster(clusters[i]);
     }
 
     // Loop through the dataset until the clusters stabilize
@@ -52,7 +51,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
 
     while (1) {
         n_loops++;
-        // printf("Loop gogogogo...\n");
+        DEBUG_PRINT("Main loop count: %d\n", n_loops);
 
         for (int i = 0; i < K; ++i) {
             for (int j = 0; j < N; j++) {
@@ -65,24 +64,21 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
             // Get the distance between that point and the centroid of the first cluster.
             smallest_distance = calculate_geodistance(points[p], clusters[0].center);
             cluster_index = 0;
-            // printf("smallest distance: %f\n", smallest_distance);
+            DEBUG_PRINT("Smallest distance: %f\n", smallest_distance);
             // For the remainder of the clusters ...
             for (int i = 0; i < K - 1; i++) {
                 // calculate the distance of that point to each other cluster's centroid.
-                // distance = get_distance(p, clusters[p + 1].centroid)
                 distance = calculate_geodistance(points[p], clusters[i + 1].center);
-                // printf("distance: %f\n", distance);
-                // If it's closer to that cluster's centroid update what we
-                // think the smallest distance is, and set the point to belong
-                // to that cluster
+                DEBUG_PRINT("Distance: %f\n", distance);
+                // If it's closer to that cluster's centroid update what we think the smallest distance is,
+                // and set the point to belong to that cluster
                 if (distance < smallest_distance){
                     smallest_distance = distance;
                     cluster_index = i + 1;
-                    // printf("cluster_index: %d\n", cluster_index);
+                    DEBUG_PRINT("Cluster_index: %d\n", cluster_index);
                 }
-
             }
-            // lists[cluster_index].append(p)
+            // lists[cluster_index].append(p) in Python translates to ...
             lists[cluster_index][inner_index] =  *(points + p);
             inner_index++;
 
@@ -114,7 +110,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
             // Update cluster
             // Update centroid count
             // Allocate memory for points and copy temp to new address
-            // printf("num_point=%d  count=%d\n", clusters[i].num_points, count);
+            DEBUG_PRINT("num_point=%d  count=%d\n", clusters[i].num_points, count);
             if (clusters[i].num_points < count) {
                 clusters[i].cluster_points = (struct geopoint *) realloc(clusters[i].cluster_points, sizeof(struct geopoint) * count);
                 realloc_count++;
@@ -136,7 +132,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
             // Keep track of the largest move from all cluster centroid updates
             biggest_shift = fmax(biggest_shift, shift);
         }
-        // printf("Biggest shift: %f\n", biggest_shift);
+        DEBUG_PRINT("Biggest shift: %f\n", biggest_shift);
         if (biggest_shift < CUTOFF) {
             break;
         }
@@ -150,13 +146,9 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
     }
     free(lists);
 
-    // Freeing of cluster points moved to caller
-//    for (int c = 0; c < K; c++) {
-//        // print_cluster(clusters[c]);
-//        printf("#%d:\n    N:%d\n    (%f, %f)\n", c, clusters[c].num_points, clusters[c].center.lat, clusters[c].center.lon);
-//        free(clusters[c].cluster_points);
-//    }
-    printf("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n%f\n", n_loops, realloc_loop_count, realloc_count, (double) realloc_loop_count/(double) realloc_count);
+    // Freeing of cluster[n].cluster_points moved to caller
+
+    DEBUG_PRINT("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n%f\n", n_loops, realloc_loop_count, realloc_count, (double) realloc_loop_count/(double) realloc_count);
 
     return 0;
 }

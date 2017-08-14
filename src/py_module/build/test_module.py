@@ -5,8 +5,8 @@ import time
 print dir(testmodule)
 print dir(testmodule.call_k_means)
 
-N = 13042
-K = 50
+N = 10  # 13042
+K = 2
 
 lat = [random.randint(1000, 2000)/100. for _ in xrange(N)]
 lon = [random.randint(4000, 5000)/100. for _ in xrange(N)]

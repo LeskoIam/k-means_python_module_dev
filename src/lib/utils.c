@@ -88,22 +88,26 @@ void print_cluster(struct cluster cl)
         printf("{%f, %f}",
                cl.cluster_points[i].lat,
                cl.cluster_points[i].lon);
-        if (i < cl.num_points-1)
+        if (i < cl.num_points - 1)
             printf(", ");
     }
     printf("}\n");
 }
 
 
+/** \brief Allocate memory for array of geopoint arrays
+ *
+ * \param K int - first dimension cont
+ * \param N int - second dimension count
+ * \return struct geopoint* - pointer to start of allocated memory
+ */
 struct geopoint **malloc2dgeoarray(int K, int N)
 {
-    // printf("Mallocing started\n");
     struct geopoint **a;
     a = (struct geopoint **) malloc(K*sizeof(struct geopoint *));
 
     for (int i = 0; i < K; i++)
         a[i] = (struct geopoint *) malloc(N*sizeof(struct geopoint));
-    // printf("Mallocing complete\n");
     return a;
 }
 
@@ -127,7 +131,6 @@ double calculate_geodistance(struct geopoint p1, struct geopoint p2)
  * \param p2 double* - second point
  * \param dim int - point dimensions
  * \return double - distance between the points
- *
  */
 double calculate_distance(const double *p1, const double *p2, int dim)
 {
@@ -240,6 +243,13 @@ int random_sample(int k, double *arr, int arr_len, double *buf)
 }
 
 
+/** \brief Select k random indexes and fill buf with them
+ *
+ * \param k int - number of elements to select
+ * \param arr_len int - length of array
+ * \param buf int* - array to which selected indexes are stored
+ * \return int - 0 if OK, -1 if errors
+ */
 int random_sample_index(int k, int arr_len, int *buf)
 {
     // Check if k exceeds length of array (arr_len) or k was selected such that it is smaller then 0
