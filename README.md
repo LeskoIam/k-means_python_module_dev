@@ -71,6 +71,7 @@ print "Time to cluster {0} points in to {1} clusters was: {2} seconds".format(N,
       StackOverflow question with great answer
     * [C: Correctly freeing memory of a multi-dimensional array](https://stackoverflow.com/questions/1733881/c-correctly-freeing-memory-of-a-multi-dimensional-array) - 
       StackOverflow question with great answer
+    * [#ifdef DEBUG print statements in C](http://ilostmynotes.blogspot.si/2011/04/ifdef-debug-print-statements-in-c.html)
     * Programming in C (fourth edition) by Stephen G. Kochan (ISBN: 978-0-321-77641-9)
 * Python extensions resources
     * [Custom Python Part 1: Extensions](https://www.codeproject.com/Articles/3227/Custom-Python-Part-Extensions) - 
