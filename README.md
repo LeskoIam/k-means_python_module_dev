@@ -25,7 +25,7 @@ I do have some prior experience with C but haven't done anything with it for som
 experience specially in the end when I needed to wrap everything for calling from and returning to Python.
 
 ## C source code
-Everything dealing with Python is in [testmodule.c](src/py_module/testmodule.c). All the code is commented and explained 
+Everything dealing with Python is in [ckmeans.c](src/py_module/ckmeans.c). All the code is commented and explained 
 in the file.
 
 Code related to K-means algorithm is in [lib](src/lib) folder. Split between [k_means.c](src/lib/k_means.c) and [utils.c](src/lib/utils.c).
@@ -34,8 +34,28 @@ Code related to K-means algorithm is in [lib](src/lib) folder. Split between [k_
 1. Clone repo
 2. Install [MinGW](http://www.mingw.org/)
 3. Add MinGW to PATH
-4. Execute [make.cmd](src/py_module/make.bat) to compile
+4. Execute [make.bat](src/py_module/make.bat) to compile. 
+    * Run ```make.bat``` for 'production' compiling
+    * Use -D flag to compile with debugging enabled (```make.bat -D```)
 5. import into Python script and use
+```python
+import ckmeans
+import random
+import time
+
+N = 10
+K = 2
+
+lat = [random.randint(1000, 2000)/100. for _ in xrange(N)]
+lon = [random.randint(4000, 5000)/100. for _ in xrange(N)]
+
+s_time = time.time()
+ans = ckmeans.k_means(lat, lon, K)
+
+# print "ANS:", ans
+print "Time to cluster {0} points in to {1} clusters was: {2} seconds".format(N, K, (time.time() - s_time))
+
+```
 
 ## Resources used:
 * General C resources

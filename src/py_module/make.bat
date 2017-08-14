@@ -1,7 +1,7 @@
 @echo off
 REM Clean remnants from last build
-del build\testmodule.pyd
-del testmodule.o
+del build\ckmeans.pyd
+del ckmeans.o
 del k_means.o
 del utils.o
 
@@ -17,20 +17,20 @@ if "%~1"=="-D" (
 
 REM Compile without debug
 echo on
-gcc -c -I C:\Python27\include testmodule.c ..\lib\k_means.c ..\lib\utils.c
+gcc -c -I C:\Python27\include ckmeans.c ..\lib\k_means.c ..\lib\utils.c
 @echo off
 goto :link
 
 :debug
 REM Compile with debug
 echo on
-gcc -c -DDEBUG -DDEBUG -I C:\Python27\include testmodule.c ..\lib\k_means.c ..\lib\utils.c
+gcc -c -DDEBUG -I C:\Python27\include ckmeans.c ..\lib\k_means.c ..\lib\utils.c
 @echo off
 
 :link
 REM Link
 echo on
-gcc -shared testmodule.o k_means.o utils.o -L C:/Python27/libs -lpython27 -o build/testmodule.pyd
+gcc -shared ckmeans.o k_means.o utils.o -L C:/Python27/libs -lpython27 -o build/ckmeans.pyd
 @echo off
 
 REM Test module

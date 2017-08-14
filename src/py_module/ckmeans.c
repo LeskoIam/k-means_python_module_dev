@@ -102,13 +102,14 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
 }
 
 static PyMethodDef KmeansMethods[] = {
-        {"call_k_means", call_k_means, METH_VARARGS, "Calculate cluster based on K-means algorithm."},
+        // {"name of the function as seen from Python", C function to call, ARGUMENTS TO FUNCTION, "Python docstring"}
+        {"k_means", call_k_means, METH_VARARGS, "Calculate cluster based on K-means algorithm."},
         {NULL, NULL, 0, NULL}
 };
 
-//             init"filename "
-PyMODINIT_FUNC inittestmodule(void)
+//             init"filename"
+PyMODINIT_FUNC initckmeans(void)
 {
-    //                   " filename "
-    (void) Py_InitModule("testmodule", KmeansMethods);
+    //                   "filename"
+    (void) Py_InitModule("ckmeans", KmeansMethods);
 }
