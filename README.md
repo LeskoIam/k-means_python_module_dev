@@ -1,10 +1,12 @@
-# Simple 2D k-means Python 2.7 module implemented in pure C
-This is an example on how to create and build an extension module for Python in pure C. Example is not the most trivial one so
-I hope it explains a little bit more then then just how to pass a single variable and print it out from C.
+# Simple 2D K-means Python module implemented in pure C
+## Intro
+### What this is
+It's an example on how to create and build extension module for Python 2.7 in pure C. It demonstrates how to parse
+input and transform it to C data types then reversing the process for returning back to Python. Example is not the most
+trivial one so I hope it explains a little bit more then just how to pass a single variable and print it out from C.
 
-From Python it receives two lists and an integer ```.call_k_means([lat1, lat2, ...], [lon1, lon2, ...], K)``` and it returns 
-list of dictionaries ```[{"center": (lat, lon), "num_points": N}]```. It demonstrates how to parse input and transform 
-it to C data types then reversing the process for returning back to Python.
+### What this is NOT
+This is not meant to be a tutorial and is not written as such.
 
 ## Backstory
 For fun and games I'm gathering geolocation data for taxis in one of Europe's capital cities. In a year or so I am already
@@ -29,6 +31,10 @@ Everything dealing with Python is in [ckmeans.c](src/py_module/ckmeans.c). All t
 in the file.
 
 Code related to K-means algorithm is in [lib](src/lib) folder. Split between [k_means.c](src/lib/k_means.c) and [utils.c](src/lib/utils.c).
+
+### Top level look at workings of the module
+C module receives two lists and an integer from Python ```.k_means([lat1, lat2, ...], [lon1, lon2, ...], K)``` and it returns 
+list of dictionaries ```[{"center": (lat, lon), "num_points": N}]```.
 
 ## How to compile to .pyd file on Windows (Windows10):
 1. Clone repo
