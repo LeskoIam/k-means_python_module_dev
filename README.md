@@ -6,11 +6,12 @@ input and transform it to C data types then reversing the process for returning 
 trivial one so I hope it explains a little bit more then just how to pass a single variable and print it out from C.
 
 ### What this is NOT
-This is not meant to be a tutorial and is not written as such.
+This is not meant to be a tutorial and is not written as such. It also does not talk about K.means algorithm but uses it
+as an example.
 
 ## Backstory
 For fun and games I'm gathering geolocation data for taxis in one of Europe's capital cities. In a year or so I am already
-at 68 million rows of raw data which boils down to  1.8 million distinct events. Every one of this events has latitude and 
+at 68 million rows of raw data which boils down to 1.8 million distinct events. Every one of this events has latitude and 
 longitude information (and some other info) attached.
 
 I wanted to do some clustering of the data to see where taxis pick up customers most of the time. Looking at different
@@ -24,7 +25,7 @@ on the web. But it soon became obvious that it gets really slow really fast when
 
 I found C implementations of K-means but could not make heads or tails of it. Decision was made to implement it myself.
 I do have some prior experience with C but haven't done anything with it for some time, so it was a great re-learning
-experience specially in the end when I needed to wrap everything for calling from and returning to Python.
+experience especially in the end when I needed to wrap everything for calling from and returning to Python.
 
 ## C source code
 Everything dealing with Python is in [ckmeans.c](src/py_module/ckmeans.c). All the code is commented and explained 
@@ -70,6 +71,7 @@ print "Time to cluster {0} points in to {1} clusters was: {2} seconds".format(N,
       StackOverflow question with great answer
     * [C: Correctly freeing memory of a multi-dimensional array](https://stackoverflow.com/questions/1733881/c-correctly-freeing-memory-of-a-multi-dimensional-array) - 
       StackOverflow question with great answer
+    * Programming in C (fourth edition) by Stephen G. Kochan (ISBN: 978-0-321-77641-9)
 * Python extensions resources
     * [Custom Python Part 1: Extensions](https://www.codeproject.com/Articles/3227/Custom-Python-Part-Extensions) - 
       great examples on how to dynamically build Python objects
@@ -86,6 +88,7 @@ print "Time to cluster {0} points in to {1} clusters was: {2} seconds".format(N,
       of C extension
     * [Writing Python/C extensions by hand](http://www.dalkescientific.com/writings/NBN/c_extensions.html) - another a bit advanced 
       example of C extension 
+    * Beginning Python by Peter Norton, Alex Samuel, David Aitel, ... (ISBN: 0-7645-9654-3) 
 
 ## TODO
 * write ```setup.py```
