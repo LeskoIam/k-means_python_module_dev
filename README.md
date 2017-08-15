@@ -97,8 +97,8 @@ print "Time to cluster {0} points in to {1} clusters was: {2} seconds".format(N,
     * Beginning Python by Peter Norton, Alex Samuel, David Aitel, ... (ISBN: 0-7645-9654-3) 
 
 ## TODO
-* write ```setup.py``` [Issue #1](#1)
-* return points belonging to clusters [Issue #2](#2)
+* write ```setup.py``` #1
+* return points belonging to clusters #2
 * clean up k_means and utils files
 * some .h file refactoring, probably
 * decide if cuttoff distance for K-means should be supplied by user?
