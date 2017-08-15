@@ -22,7 +22,9 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
     int initial_indexes[K];
 
     // Pick out k random points to use as our initial centroids, well this are actually indexes...
-    random_sample_index(K, N, initial_indexes);
+    if (random_sample_index(K, N, initial_indexes) != 0) {
+        return -1;
+    }
     DEBUG_PRINT("K: %d\n", K);
 
     // Create k clusters using those centroids

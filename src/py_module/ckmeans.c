@@ -64,7 +64,10 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
     // Allocate enough space for clusters
     clusters = (struct cluster *) malloc(sizeof(struct cluster) * K);
     // Run K-means algorithm
-    k_means(latPoints, lonPoints, N, K, clusters);
+    if (k_means(latPoints, lonPoints, N, K, clusters) != 0) {
+        PyErr_SetString(PyExc_SystemError, "K-means algorithm failed.");
+        return NULL;
+    }
 
     /* Get results from K-means ready for returning to Python as Python data types
      * In Python returned data structure will be a list of dictionaries, e.g.:
