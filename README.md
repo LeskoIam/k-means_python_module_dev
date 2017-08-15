@@ -1,5 +1,5 @@
 # Simple 2D K-means Python module implemented in pure C
-##### Current version: 1.0.0
+##### Current version: [1.0.0](https://github.com/LeskoIam/k-means_python_module_dev/releases/latest)
 
 ## Intro
 ### What this is
@@ -46,6 +46,9 @@ list of dictionaries ```[{"center": (lat, lon), "num_points": N}]```.
 4. Execute [make.bat](src/py_module/make.bat) to compile. 
     * Run ```make.bat``` for 'production' compiling
     * Use ```-D``` flag to compile with debugging enabled (```make.bat -D```)
+    
+    If compiling is successful you will find ckmeans.pyd file in ```build\ ``` directory. pyd is like .dll file but you can
+    import it an any other python file.
 5. import into Python and use
 ```python
 import ckmeans
