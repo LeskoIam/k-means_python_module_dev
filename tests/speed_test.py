@@ -2,7 +2,7 @@ import ckmeans
 import random
 import time
 
-N = 100000
+N = 13000
 K = 50
 
 lat = [random.randint(1000, 2000) / 100. for _ in xrange(N)]
@@ -10,7 +10,7 @@ lon = [random.randint(4000, 5000) / 100. for _ in xrange(N)]
 
 print "Version:", ckmeans.version(), "\n"
 
-print "Star clustering ... "
+print "Start clustering ... "
 master_start_time = time.time()
 times = []
 for cycle in range(100):

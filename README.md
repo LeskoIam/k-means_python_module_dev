@@ -48,7 +48,7 @@ list of dictionaries ```[{"center": (lat, lon), "num_points": N}]```.
     * Use ```-D``` flag to compile with debugging enabled (```make.bat -D```)
     
     If compiling is successful you will find ckmeans.pyd file in ```build\ ``` directory. pyd is like .dll file but you can
-    import it an any other python file.
+    import it as any other python file.
 5. import into Python and use
 ```python
 import ckmeans
