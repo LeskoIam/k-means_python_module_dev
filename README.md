@@ -1,4 +1,6 @@
 # Simple 2D K-means Python module implemented in pure C
+##### Current version: 1.0.0
+
 ## Intro
 ### What this is
 It's an example on how to create and build extension module for Python 2.7 in pure C. It demonstrates how to parse

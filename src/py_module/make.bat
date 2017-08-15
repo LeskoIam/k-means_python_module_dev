@@ -21,14 +21,14 @@ gcc -c -I C:\Python27\include ckmeans.c ..\lib\k_means.c ..\lib\utils.c
 @echo off
 goto :link
 
-:debug
 REM Compile with debug
+:debug
 echo on
 gcc -c -DDEBUG -I C:\Python27\include ckmeans.c ..\lib\k_means.c ..\lib\utils.c
 @echo off
 
+REM Link to pyd
 :link
-REM Link
 echo on
 gcc -shared ckmeans.o k_means.o utils.o -L C:/Python27/libs -lpython27 -o build/ckmeans.pyd
 @echo off

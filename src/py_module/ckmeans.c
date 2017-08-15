@@ -6,6 +6,19 @@
 #include <Python.h>
 #include "../main.h"
 
+#define CKMEANS_VERSION_MAJOR 1
+#define CKMEANS_VERSION_MIDDLE 0
+#define CKMEANS_VERSION_MINOR 0
+
+
+static PyObject* print_version(PyObject* self, PyObject* args)
+{
+    char version[9];
+    sprintf(version, "%d.%d.%d", CKMEANS_VERSION_MAJOR, CKMEANS_VERSION_MIDDLE, CKMEANS_VERSION_MINOR);
+    return Py_BuildValue("s", version);
+}
+
+
 static PyObject* call_k_means(PyObject* self, PyObject* args)
 {
     // Number of latitude and longitude points received from caller
@@ -104,11 +117,14 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
     return pList;
 }
 
+
 static PyMethodDef KmeansMethods[] = {
         // {"name of the function as seen from Python", C function to call, ARGUMENTS TO FUNCTION, "Python docstring"}
         {"k_means", call_k_means, METH_VARARGS, "Calculate cluster based on K-means algorithm."},
+        {"version", print_version, METH_VARARGS, "Return current version of ckmeans binary."},
         {NULL, NULL, 0, NULL}
 };
+
 
 //             init"filename"
 PyMODINIT_FUNC initckmeans(void)
