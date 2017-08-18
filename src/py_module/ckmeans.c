@@ -8,7 +8,7 @@
 
 #define CKMEANS_VERSION_MAJOR 1
 #define CKMEANS_VERSION_MIDDLE 0
-#define CKMEANS_VERSION_MINOR 0
+#define CKMEANS_VERSION_MINOR 1
 
 
 static PyObject* print_version(PyObject* self, PyObject* args)

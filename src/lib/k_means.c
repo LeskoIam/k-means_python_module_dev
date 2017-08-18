@@ -38,6 +38,9 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
     double smallest_distance;
     double distance;
     int cluster_index;
+
+    struct geopoint *temp = (struct geopoint *) malloc(sizeof(struct geopoint));
+
     int n_loops = 0;
     int realloc_count = 0;
     int realloc_loop_count = 0;
@@ -86,6 +89,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
         }
         // Set our biggest_shift to zero for this iteration
         double biggest_shift = 0.0;
+        int old_count = 0;
         for (int i = 0; i < K; i++) {
             // Calculate how far the centroid moved in this iteration
             struct geopoint old_center = clusters[i].center;
@@ -100,7 +104,11 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
             }
 
             // Fill temp points with valid points
-            struct geopoint temp[count];
+            if (old_count < count) {
+                temp = (struct geopoint *) realloc(temp, sizeof(struct geopoint) * count);
+                realloc_count++;
+            }
+            old_count = count;
             int pi = 0;
             for (int p = 0; p < N; p++) {
                 if (lists[i][p].lat != -1) {
@@ -141,6 +149,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
 
     // Clean
     free(points);
+    free(temp);
 
     for(int i = 0; i < K; i++) {
         free(lists[i]);

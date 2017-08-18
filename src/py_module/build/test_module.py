@@ -15,7 +15,7 @@ lon = [random.randint(4000, 5000)/100. for _ in xrange(N)]
 print "Version:", ckmeans.version(), "\n"
 
 s_time = time.time()
-print "Star clustering ... ",
+print "Start clustering ... ",
 ans = ckmeans.k_means(lat, lon, K)
 print "DONE"
 # print "ANS:", ans
