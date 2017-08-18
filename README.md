@@ -1,5 +1,5 @@
 # Simple 2D K-means Python module implemented in pure C
-##### Current version: [1.0.0](https://github.com/LeskoIam/k-means_python_module_dev/releases/latest)
+##### Current version: [1.0.1](https://github.com/LeskoIam/k-means_python_module_dev/releases/latest)
 
 ## Intro
 ### What this is
