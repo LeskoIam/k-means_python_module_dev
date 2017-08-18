@@ -42,8 +42,6 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
     struct geopoint *temp = (struct geopoint *) malloc(sizeof(struct geopoint));
 
     int n_loops = 0;
-    int realloc_count = 0;
-    int realloc_loop_count = 0;
 
     struct geopoint **lists;
     lists = malloc2dgeoarray(K, N);
@@ -106,7 +104,6 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
             // Fill temp points with valid points
             if (old_count < count) {
                 temp = (struct geopoint *) realloc(temp, sizeof(struct geopoint) * count);
-                realloc_count++;
             }
             old_count = count;
             int pi = 0;
@@ -122,9 +119,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
             DEBUG_PRINT("num_point=%d  count=%d\n", clusters[i].num_points, count);
             if (clusters[i].num_points < count) {
                 clusters[i].cluster_points = (struct geopoint *) realloc(clusters[i].cluster_points, sizeof(struct geopoint) * count);
-                realloc_count++;
             }
-            realloc_loop_count++;
             clusters[i].num_points = count;
             memcpy(clusters[i].cluster_points, temp, sizeof(struct geopoint) * count);
             // Calculate new cluster center and update its center
@@ -156,7 +151,7 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
     }
     free(lists);
 
-    DEBUG_PRINT("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n%f\n", n_loops, realloc_loop_count, realloc_count, (double) realloc_loop_count/(double) realloc_count);
+    DEBUG_PRINT("n_loops: %d\n", n_loops);
 
     return 0;
 }
