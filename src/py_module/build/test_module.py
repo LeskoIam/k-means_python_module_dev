@@ -5,7 +5,7 @@ import time
 # print dir(ckmeans)
 # print dir(ckmeans.k_means)
 
-N = 13264
+N = 1000000
 K = 50
 
 lat = [random.randint(1000, 2000)/100. for _ in xrange(N)]

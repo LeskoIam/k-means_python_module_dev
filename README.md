@@ -64,12 +64,11 @@ lon = [random.randint(4000, 5000)/100. for _ in xrange(N)]
 s_time = time.time()
 ans = ckmeans.k_means(lat, lon, K)
 
-# print "ANS:", ans
 print "Time to cluster {0} points in to {1} clusters was: {2} seconds".format(N, K, (time.time() - s_time))
 
 ```
 
-## Resources used:
+## Resources used
 * General C resources
     * [DevDocs](http://devdocs.io/c/language/object) - General C documentation
     * [Using malloc for allocation of multi-dimensional arrays with different row lengths](https://stackoverflow.com/questions/1970698/using-malloc-for-allocation-of-multi-dimensional-arrays-with-different-row-lengt) - 

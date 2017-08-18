@@ -6,7 +6,7 @@
 #include "../main.h"
 
 // K-Means cutoff jitter distance
-#define CUTOFF 0.00000001
+#define CUTOFF 0.000001
 
 int k_means(const double *lats, const double *lons, const int N, const int K, struct cluster *clusters)
 {
@@ -21,18 +21,17 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
     // struct cluster clusters[K];
     int initial_indexes[K];
 
-    // Pick out k random points to use as our initial centroids, well this are actually indexes...
+    // Pick out K random points to use as our initial centroids, well this are actually indexes...
     if (random_sample_index(K, N, initial_indexes) != 0) {
         return -1;
     }
     DEBUG_PRINT("K: %d\n", K);
 
-    // Create k clusters using those centroids
+    // Create K clusters using those centroids
     // printf("Random points to seed first clusters\n");
     for (int i = 0; i < K; i++) {
         clusters[i].center = points[initial_indexes[i]];
         clusters[i].num_points = 1;
-        clusters[i].cluster_points = (struct geopoint *) malloc(sizeof(struct geopoint));
     }
 
     // Loop through the dataset until the clusters stabilize
@@ -147,8 +146,6 @@ int k_means(const double *lats, const double *lons, const int N, const int K, st
         free(lists[i]);
     }
     free(lists);
-
-    // Freeing of cluster[n].cluster_points moved to caller
 
     DEBUG_PRINT("n_loops: %d\nrealloc_loop_count: %d\nrealloc_count: %d\n%f\n", n_loops, realloc_loop_count, realloc_count, (double) realloc_loop_count/(double) realloc_count);
 

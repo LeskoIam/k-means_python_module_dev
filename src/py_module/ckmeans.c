@@ -74,8 +74,13 @@ static PyObject* call_k_means(PyObject* self, PyObject* args)
         *(lonPoints + i) = PyFloat_AsDouble(PyList_GetItem(lonListObj, i));
     }
 
-    // Allocate enough space for clusters
+    // Allocate enough space for clusters ...
     clusters = (struct cluster *) malloc(sizeof(struct cluster) * K);
+    // ... and allocate some space for array of points belonging to clusters
+    for (int i = 0; i < K; i++) {
+        clusters[i].cluster_points = (struct geopoint *) malloc(sizeof(struct geopoint));
+    }
+
     // Run K-means algorithm
     if (k_means(latPoints, lonPoints, N, K, clusters) != 0) {
         PyErr_SetString(PyExc_SystemError, "K-means algorithm failed.");
